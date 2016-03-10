@@ -2,6 +2,7 @@ FROM ubuntu:trusty
 MAINTAINER Takahiro Shizuki <shizu@futuregadget.com>
 
 ENV HOME /root
+ENV DISPLAY 192.168.99.1:0
 
 
 # set package repository mirror
@@ -65,7 +66,9 @@ WORKDIR /root/src
 RUN wget http://ftp.gnu.org/gnu/emacs/emacs-24.5.tar.gz
 RUN tar -xf emacs-24.5.tar.*
 WORKDIR /root/src/emacs-24.5
-RUN ./configure && make && make install
+RUN ./configure
+RUN sed -i.bak -e "s%CANNOT_DUMP=no%CANNOT_DUMP=yes%g" /root/src/emacs-24.5/src/Makefile
+RUN make && make install
 
 # spacemacs
 RUN git clone --recursive https://github.com/syl20bnr/spacemacs /root/.emacs.d
