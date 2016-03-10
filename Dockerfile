@@ -169,4 +169,4 @@ RUN ln -s /root/.local/share/umake/bin/visual-studio-code /usr/bin/visual-studio
 WORKDIR /root
 
 # docker run usual
-RUN /bin/bash -c 'echo docker run -it --rm -v /c/Users/\$USERNAME:/home/\$USERNAME local/playground xfce4-terminal' # for working.
+RUN /bin/bash -c 'echo docker run -it --rm -v ~/:/home/\$USER -p 80:80 local/playground xfce4-terminal' # for working.
