@@ -148,6 +148,16 @@ RUN /bin/bash -c 'echo (with-open-file (out "/root/.sbclrc" :direction :output) 
 
 RUN sbcl --non-interactive --load /root/src/sbcl/install.lisp
 
+
+# option, visual studio code
+RUN add-apt-repository ppa:ubuntu-desktop/ubuntu-make
+RUN apt-get update
+RUN apt-get -y install ubuntu-make
+RUN apt-get -y install libgtk2.0-0 libgconf-2-4 libnss3 libasound-dev
+RUN /usr/bin/xfce4-terminal --command "umake web visual-studio-code"
+RUN ln -s /root/.local/share/umake/bin/visual-studio-code /usr/bin/visual-studio-code
+
+
 WORKDIR /root
 
 # docker run usual
