@@ -39,6 +39,7 @@ RUN wget https://www.ubuntulinux.jp/sources.list.d/wily.list -O /etc/apt/sources
 RUN apt-get update -o Acquire::ForceIPv4=true
 RUN apt-get -y install language-pack-ja-base language-pack-ja fonts-ipafont-gothic dbus-x11
 RUN apt-get -y install ibus-skk
+RUN apt-get -y install skkdic skkdic-cdb skkdic-extra skksearch skktools
 RUN update-locale LANG=ja_JP.UTF-8 LANGUAGE=ja_JP:ja
 RUN apt-get clean
 
