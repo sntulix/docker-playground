@@ -139,9 +139,6 @@ RUN chmod +x /root/src/install-java8.sh
 RUN /usr/bin/xfce4-terminal --tab --command /root/src/install-java8.sh --tab --command emacs
 
 
-WORKDIR /root
-
-
 # Install SBCL from the tarball binaries.
 RUN wget http://prdownloads.sourceforge.net/sbcl/sbcl-1.3.1-x86-64-linux-binary.tar.bz2	 -O /root/src/sbcl.tar.bz2 \
 &&    mkdir /root/src/sbcl \
@@ -152,10 +149,10 @@ RUN wget http://prdownloads.sourceforge.net/sbcl/sbcl-1.3.1-x86-64-linux-binary.
 
 WORKDIR /root/src/sbcl
 RUN wget http://beta.quicklisp.org/quicklisp.lisp
-RUN bash -c 'echo (defvar *dist-url* "http://beta.quicklisp.org/dist/quicklisp/2015-12-18/distinfo.txt") > /root/src/sbcl/install.lisp'
-RUN bash -c 'echo (load "quicklisp.lisp") >> /root/src/sbcl/install.lisp'
-RUN bash -c 'echo (quicklisp-quickstart:install :path "/root/quicklisp/" :dist-url *dist-url*) >> /root/src/sbcl/install.lisp'
-RUN bash -c 'echo (with-open-file (out "/root/.sbclrc" :direction :output) (format out "(load \"/root/quicklisp\/setup.lisp\")")) >> /root/src/sbcl/install.lisp'
+RUN bash -c 'echo "(defvar *dist-url* \"http://beta.quicklisp.org/dist/quicklisp/2015-12-18/distinfo.txt\")" > /root/src/sbcl/install.lisp'
+RUN bash -c 'echo "(load \"quicklisp.lisp\")" >> /root/src/sbcl/install.lisp'
+RUN bash -c 'echo "(quicklisp-quickstart:install :path \"/root/quicklisp/\" :dist-url *dist-url*)" >> /root/src/sbcl/install.lisp'
+RUN bash -c 'echo "(with-open-file (out \"/root/.sbclrc\" :direction :output) (format out \"(load "/root/quicklisp\/setup.lisp")\"))" >> /root/src/sbcl/install.lisp'
 
 RUN sbcl --non-interactive --load /root/src/sbcl/install.lisp
 
