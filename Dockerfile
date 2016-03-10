@@ -118,6 +118,14 @@ env LIBGL_ALWAYS_INDIRECT 1
 #env DRI_PRIME 1
 
 
+# web server
+RUN apt-get -y install apache2 libapache2-mod-php5 php5-mysql mysql-server-5.6 mysql-client-5.6
+RUN apt-get clean
+
+RUN sed -i.bak -e "s%;date.timezone =%date.timezone = Tokyo/Asia%g" /etc/php5/apache2/php.ini
+RUN usermod -u 1000 www-data
+
+
 # create Java8 install script.
 RUN /bin/bash -c "echo apt-get -y install oracle-java8-installer > /root/src/install-java8.sh"
 RUN /bin/bash -c "echo apt-get -y install oracle-java8-set-default >> /root/src/install-java8.sh"
