@@ -75,7 +75,7 @@ RUN git clone --recursive https://github.com/syl20bnr/spacemacs /root/.emacs.d
 ENV NODE_VERSION v4.2.6
 RUN git clone https://github.com/creationix/nvm.git /root/.nvm
 RUN echo "if [[ -s /root/.nvm/nvm.sh ]] ; then source /root/.nvm/nvm.sh ; fi" > /root/.bash_profile
-RUN /bin/bash -c 'source /root/.nvm/nvm.sh && nvm install $NODE_VERSION && nvm use $NODE_VERSION && nvm alias default $NODE_VERSION && ln -s /root/.nvm/versions/node/$NODE_VERSION/bin/node /usr/bin/node && ln -s /root/.nvm/versions/node/$NODE_VERSION/bin/npm /usr/bin/npm'
+RUN bash -c 'source /root/.nvm/nvm.sh && nvm install $NODE_VERSION && nvm use $NODE_VERSION && nvm alias default $NODE_VERSION && ln -s /root/.nvm/versions/node/$NODE_VERSION/bin/node /usr/bin/node && ln -s /root/.nvm/versions/node/$NODE_VERSION/bin/npm /usr/bin/npm'
 
 ## install npm packages
 RUN npm -g --ignore-scripts install spawn-sync
@@ -93,7 +93,7 @@ RUN apt-get update -o Acquire::ForceIPv4=true
 WORKDIR /root/src
 RUN wget https://dl.google.com/dl/android/studio/ide-zips/2.0.0.14/android-studio-ide-143.2609919-linux.zip
 RUN unzip android-studio-ide-143.2609919-linux.zip -d /opt
-RUN /bin/bash -c 'export PATH=$PATH:/opt/android-studio/bin'
+RUN bash -c 'export PATH=$PATH:/opt/android-studio/bin'
 RUN apt-get install -y lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6 libc6-i386 lib32gcc1 # solution for "Unable to run mksdcard SDK tool."
 
 
@@ -127,8 +127,8 @@ RUN usermod -u 1000 www-data
 
 
 # create Java8 install script.
-RUN /bin/bash -c "echo apt-get -y install oracle-java8-installer > /root/src/install-java8.sh"
-RUN /bin/bash -c "echo apt-get -y install oracle-java8-set-default >> /root/src/install-java8.sh"
+RUN bash -c "echo apt-get -y install oracle-java8-installer > /root/src/install-java8.sh"
+RUN bash -c "echo apt-get -y install oracle-java8-set-default >> /root/src/install-java8.sh"
 RUN chmod +x /root/src/install-java8.sh
 
 
@@ -149,10 +149,10 @@ RUN wget http://prdownloads.sourceforge.net/sbcl/sbcl-1.3.1-x86-64-linux-binary.
 
 WORKDIR /root/src/sbcl
 RUN wget http://beta.quicklisp.org/quicklisp.lisp
-RUN /bin/bash -c 'echo (defvar *dist-url* "http://beta.quicklisp.org/dist/quicklisp/2015-12-18/distinfo.txt") > /root/src/sbcl/install.lisp'
-RUN /bin/bash -c 'echo (load "quicklisp.lisp") >> /root/src/sbcl/install.lisp'
-RUN /bin/bash -c 'echo (quicklisp-quickstart:install :path "/root/quicklisp/" :dist-url *dist-url*) >> /root/src/sbcl/install.lisp'
-RUN /bin/bash -c 'echo (with-open-file (out "/root/.sbclrc" :direction :output) (format out "(load \"/root/quicklisp\/setup.lisp\")")) >> /root/src/sbcl/install.lisp'
+RUN bash -c 'echo (defvar *dist-url* "http://beta.quicklisp.org/dist/quicklisp/2015-12-18/distinfo.txt") > /root/src/sbcl/install.lisp'
+RUN bash -c 'echo (load "quicklisp.lisp") >> /root/src/sbcl/install.lisp'
+RUN bash -c 'echo (quicklisp-quickstart:install :path "/root/quicklisp/" :dist-url *dist-url*) >> /root/src/sbcl/install.lisp'
+RUN bash -c 'echo (with-open-file (out "/root/.sbclrc" :direction :output) (format out "(load \"/root/quicklisp\/setup.lisp\")")) >> /root/src/sbcl/install.lisp'
 
 RUN sbcl --non-interactive --load /root/src/sbcl/install.lisp
 
@@ -169,4 +169,4 @@ RUN ln -s /root/.local/share/umake/bin/visual-studio-code /usr/bin/visual-studio
 WORKDIR /root
 
 # docker run usual
-RUN /bin/bash -c 'echo docker run -it --rm -v ~/:/home/\$USER -p 80:80 local/playground xfce4-terminal' # for working.
+RUN bash -c 'echo docker run -it --rm -v ~/:/home/\$USER -p 80:80 local/playground xfce4-terminal' # for working.
