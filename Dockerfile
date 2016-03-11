@@ -136,10 +136,6 @@ RUN bash -c "echo apt-get -y install oracle-java8-set-default >> /root/src/insta
 RUN chmod +x /root/src/install-java8.sh
 
 
-# Install Java 8 & Init spacemacs
-RUN /usr/bin/xfce4-terminal --tab --command /root/src/install-java8.sh --tab --command emacs
-
-
 # Install SBCL from the tarball binaries.
 RUN wget http://prdownloads.sourceforge.net/sbcl/sbcl-1.3.1-x86-64-linux-binary.tar.bz2	 -O /root/src/sbcl.tar.bz2 \
 &&    mkdir /root/src/sbcl \
@@ -163,7 +159,9 @@ RUN add-apt-repository ppa:ubuntu-desktop/ubuntu-make
 RUN apt-get update
 RUN apt-get -y install ubuntu-make
 RUN apt-get -y install libgtk2.0-0 libgconf-2-4 libnss3 libasound-dev
-RUN /usr/bin/xfce4-terminal --command "umake web visual-studio-code"
+
+# Install VSCode and Java8 & Init spacemacs
+RUN /usr/bin/xfce4-terminal --tab --command /root/src/install-java8.sh --tab --command emacs --tab --command "umake web visual-studio-code"
 RUN ln -s /root/.local/share/umake/bin/visual-studio-code /usr/bin/visual-studio-code
 
 
