@@ -60,19 +60,19 @@ RUN dpkg -i diffmerge_4.2.0.697.stable_amd64.deb
 
 
 # Emacs24.5
-RUN apt-get -y install build-essential libgnutls28
-RUN apt-get -y build-dep emacs24
-RUN mkdir -p /root/src
-WORKDIR /root/src
-RUN wget http://ftp.gnu.org/gnu/emacs/emacs-24.5.tar.gz
-RUN tar -xf emacs-24.5.tar.*
-WORKDIR /root/src/emacs-24.5
-RUN ./configure
-RUN sed -i.bak -e "s%CANNOT_DUMP=no%CANNOT_DUMP=yes%g" /root/src/emacs-24.5/src/Makefile
-RUN make && make install
+#RUN apt-get -y install build-essential libgnutls28
+#RUN apt-get -y build-dep emacs24
+#RUN mkdir -p /root/src
+#WORKDIR /root/src
+#RUN wget http://ftp.gnu.org/gnu/emacs/emacs-24.5.tar.gz
+#RUN tar -xf emacs-24.5.tar.*
+#WORKDIR /root/src/emacs-24.5
+#RUN ./configure
+#RUN sed -i.bak -e "s%CANNOT_DUMP=no%CANNOT_DUMP=yes%g" /root/src/emacs-24.5/src/Makefile
+#RUN make && make install
 
 # spacemacs
-RUN git clone --recursive https://github.com/syl20bnr/spacemacs /root/.emacs.d
+#RUN git clone --recursive https://github.com/syl20bnr/spacemacs /root/.emacs.d
 
 
 # nvm and node.js
@@ -161,7 +161,8 @@ RUN apt-get -y install ubuntu-make
 RUN apt-get -y install libgtk2.0-0 libgconf-2-4 libnss3 libasound-dev
 
 # Install VSCode and Java8 & Init spacemacs
-RUN /usr/bin/xfce4-terminal --tab --command /root/src/install-java8.sh --tab --command emacs --tab --command "umake web visual-studio-code"
+#RUN /usr/bin/xfce4-terminal --tab --command /root/src/install-java8.sh --tab --command emacs --tab --command "umake web visual-studio-code"
+RUN /usr/bin/xfce4-terminal --tab --command /root/src/install-java8.sh --tab --command "umake web visual-studio-code"
 RUN ln -s /root/.local/share/umake/bin/visual-studio-code /usr/bin/visual-studio-code
 
 
