@@ -165,6 +165,10 @@ RUN apt-get -y install libgtk2.0-0 libgconf-2-4 libnss3 libasound-dev
 RUN /usr/bin/xfce4-terminal --tab --command /root/src/install-java8.sh --tab --command "umake web visual-studio-code"
 RUN ln -s /root/.local/share/umake/bin/visual-studio-code /usr/bin/visual-studio-code
 
+# youtube-dl
+RUN curl https://yt-dl.org/downloads/2016.03.18/youtube-dl -o /usr/local/bin/youtube-dl
+RUN chmod a+rx /usr/local/bin/youtube-dl
+
 
 WORKDIR /root
 
