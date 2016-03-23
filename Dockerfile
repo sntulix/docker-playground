@@ -1,8 +1,8 @@
 FROM ubuntu:trusty
 MAINTAINER Takahiro Shizuki <shizu@futuregadget.com>
 
-ENV HOME /root
-ENV DISPLAY 192.168.99.1:0
+ENV HOST_HOME $HOME
+ENV CLIENT_HOME /root
 
 
 # set package repository mirror
@@ -50,11 +50,11 @@ ENV LC_CTYPE ja_JP.UTF-8
 ENV GTK_IM_MODULE ibus
 ENV QT_IM_MODULE ibus
 ENV XMODIFIERS @im=ibus
-RUN echo "ibus-daemon -drx" >> /root/.bashrc
+RUN echo "ibus-daemon -drx" >> $CLIENT_HOME/.bashrc
 
 
 # diff merge
-WORKDIR /root/src
+WORKDIR $CLIENT_HOME/src
 RUN wget http://download-us.sourcegear.com/DiffMerge/4.2.0/diffmerge_4.2.0.697.stable_amd64.deb
 RUN dpkg -i diffmerge_4.2.0.697.stable_amd64.deb
 
@@ -62,24 +62,24 @@ RUN dpkg -i diffmerge_4.2.0.697.stable_amd64.deb
 # Emacs24.5
 #RUN apt-get -y install build-essential libgnutls28
 #RUN apt-get -y build-dep emacs24
-#RUN mkdir -p /root/src
-#WORKDIR /root/src
+#RUN mkdir -p $CLIENT_HOME/src
+#WORKDIR $CLIENT_HOME/src
 #RUN wget http://ftp.gnu.org/gnu/emacs/emacs-24.5.tar.gz
 #RUN tar -xf emacs-24.5.tar.*
-#WORKDIR /root/src/emacs-24.5
+#WORKDIR $CLIENT_HOME/src/emacs-24.5
 #RUN ./configure
-#RUN sed -i.bak -e "s%CANNOT_DUMP=no%CANNOT_DUMP=yes%g" /root/src/emacs-24.5/src/Makefile
+#RUN sed -i.bak -e "s%CANNOT_DUMP=no%CANNOT_DUMP=yes%g" $CLIENT_HOME/src/emacs-24.5/src/Makefile
 #RUN make && make install
 
 # spacemacs
-#RUN git clone --recursive https://github.com/syl20bnr/spacemacs /root/.emacs.d
+#RUN git clone --recursive https://github.com/syl20bnr/spacemacs $CLIENT_HOME/.emacs.d
 
 
 # nvm and node.js
 ENV NODE_VERSION v4.2.6
-RUN git clone https://github.com/creationix/nvm.git /root/.nvm
-RUN echo "if [[ -s /root/.nvm/nvm.sh ]] ; then source /root/.nvm/nvm.sh ; fi" > /root/.bash_profile
-RUN bash -c 'source /root/.nvm/nvm.sh && nvm install $NODE_VERSION && nvm use $NODE_VERSION && nvm alias default $NODE_VERSION && ln -s /root/.nvm/versions/node/$NODE_VERSION/bin/node /usr/bin/node && ln -s /root/.nvm/versions/node/$NODE_VERSION/bin/npm /usr/bin/npm'
+RUN git clone https://github.com/creationix/nvm.git $CLIENT_HOME/.nvm
+RUN echo "if [[ -s $CLIENT_HOME/.nvm/nvm.sh ]] ; then source $CLIENT_HOME/.nvm/nvm.sh ; fi" > $CLIENT_HOME/.bashrc
+RUN bash -c 'source $CLIENT_HOME/.nvm/nvm.sh && nvm install $NODE_VERSION && nvm use $NODE_VERSION && nvm alias default $NODE_VERSION && ln -s $CLIENT_HOME/.nvm/versions/node/$NODE_VERSION/bin/node /usr/bin/node && ln -s $CLIENT_HOME/.nvm/versions/node/$NODE_VERSION/bin/npm /usr/bin/npm'
 
 ## install npm packages
 RUN npm -g --ignore-scripts install spawn-sync
@@ -94,17 +94,17 @@ RUN apt-get update -o Acquire::ForceIPv4=true
 
 
 # android studio
-WORKDIR /root/src
+WORKDIR $CLIENT_HOME/src
 RUN wget https://dl.google.com/dl/android/studio/ide-zips/2.0.0.14/android-studio-ide-143.2609919-linux.zip
 RUN unzip android-studio-ide-143.2609919-linux.zip -d /opt
-RUN bash -c 'export PATH=$PATH:/opt/android-studio/bin'
+RUN bash -c 'echo export PATH=\$PATH:/opt/android-studio/bin' >> $CLIENT_HOME/.bashrc
 RUN apt-get install -y lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6 libc6-i386 lib32gcc1 # solution for "Unable to run mksdcard SDK tool."
 
 
 # Set Env
 ENV SHELL /bin/bash
-RUN mkdir /root/.ssh
-RUN chmod 600 /root/.ssh
+RUN mkdir $CLIENT_HOME/.ssh
+RUN chmod 600 $CLIENT_HOME/.ssh
 ENV DISPLAY 192.168.99.1:0
 ENV GIT_USER_NAME "Takahiro Shizuki"
 ENV GIT_USER_EMAIL "shizu@futuregadget.com"
@@ -131,39 +131,42 @@ RUN usermod -u 1000 www-data
 
 
 # create Java8 install script.
-RUN bash -c "echo apt-get -y install oracle-java8-installer > /root/src/install-java8.sh"
-RUN bash -c "echo apt-get -y install oracle-java8-set-default >> /root/src/install-java8.sh"
-RUN chmod +x /root/src/install-java8.sh
+RUN bash -c "echo apt-get -y install oracle-java8-installer > $CLIENT_HOME/src/install-java8.sh"
+RUN bash -c "echo apt-get -y install oracle-java8-set-default >> $CLIENT_HOME/src/install-java8.sh"
+RUN chmod +x $CLIENT_HOME/src/install-java8.sh
 
 
 # Install SBCL from the tarball binaries.
-RUN wget http://prdownloads.sourceforge.net/sbcl/sbcl-1.3.1-x86-64-linux-binary.tar.bz2	 -O /root/src/sbcl.tar.bz2 \
-&&    mkdir /root/src/sbcl \
-&&    tar jxvf /root/src/sbcl.tar.bz2 --strip-components=1 -C /root/src/sbcl/ \
-&&    cd /root/src/sbcl \
+RUN wget http://prdownloads.sourceforge.net/sbcl/sbcl-1.3.1-x86-64-linux-binary.tar.bz2	 -O $CLIENT_HOME/src/sbcl.tar.bz2 \
+&&    mkdir $CLIENT_HOME/src/sbcl \
+&&    tar jxvf $CLIENT_HOME/src/sbcl.tar.bz2 --strip-components=1 -C $CLIENT_HOME/src/sbcl/ \
+&&    cd $CLIENT_HOME/src/sbcl \
 &&    sh install.sh \
-&&    rm -rf /root/src/sbcl/
+&&    rm -rf $CLIENT_HOME/src/sbcl/
 
-WORKDIR /root/src/sbcl
+WORKDIR $CLIENT_HOME/src/sbcl
 RUN wget http://beta.quicklisp.org/quicklisp.lisp
-RUN bash -c 'echo "(defvar *dist-url* \"http://beta.quicklisp.org/dist/quicklisp/2015-12-18/distinfo.txt\")" > /root/src/sbcl/install.lisp'
-RUN bash -c 'echo "(load \"quicklisp.lisp\")" >> /root/src/sbcl/install.lisp'
-RUN bash -c 'echo "(quicklisp-quickstart:install :path \"/root/quicklisp/\" :dist-url *dist-url*)" >> /root/src/sbcl/install.lisp'
-RUN bash -c 'echo "(with-open-file (out \"/root/.sbclrc\" :direction :output) (format out \"(load "/root/quicklisp\/setup.lisp")\"))" >> /root/src/sbcl/install.lisp'
+RUN bash -c 'echo "(defvar *dist-url* \"http://beta.quicklisp.org/dist/quicklisp/2015-12-18/distinfo.txt\")" > $CLIENT_HOME/src/sbcl/install.lisp'
+RUN bash -c 'echo "(load \"quicklisp.lisp\")" >> $CLIENT_HOME/src/sbcl/install.lisp'
+RUN bash -c 'echo "(quicklisp-quickstart:install :path \"$CLIENT_HOME/quicklisp/\" :dist-url *dist-url*)" >> $CLIENT_HOME/src/sbcl/install.lisp'
+RUN bash -c 'echo "(with-open-file (out \"$CLIENT_HOME/.sbclrc\" :direction :output) (format out \"(load "$CLIENT_HOME/quicklisp\/setup.lisp")\"))" >> $CLIENT_HOME/src/sbcl/install.lisp'
 
-RUN sbcl --non-interactive --load /root/src/sbcl/install.lisp
+RUN sbcl --non-interactive --load $CLIENT_HOME/src/sbcl/install.lisp
 
 
-# option, visual studio code
+# options
+# visual studio code
 RUN add-apt-repository ppa:ubuntu-desktop/ubuntu-make
 RUN apt-get update
 RUN apt-get -y install ubuntu-make
 RUN apt-get -y install libgtk2.0-0 libgconf-2-4 libnss3 libasound-dev
 
+
 # Install VSCode and Java8 & Init spacemacs
-#RUN /usr/bin/xfce4-terminal --tab --command /root/src/install-java8.sh --tab --command emacs --tab --command "umake web visual-studio-code"
-RUN /usr/bin/xfce4-terminal --tab --command /root/src/install-java8.sh --tab --command "umake web visual-studio-code"
-RUN ln -s /root/.local/share/umake/bin/visual-studio-code /usr/bin/visual-studio-code
+WORKDIR $CLIENT_HOME
+#RUN /usr/bin/xfce4-terminal --tab --command $CLIENT_HOME/src/install-java8.sh --tab --command emacs --tab --command "umake web visual-studio-code"
+RUN /usr/bin/xfce4-terminal --tab --command $CLIENT_HOME/src/install-java8.sh --tab --command "umake web visual-studio-code"
+RUN ln -s $CLIENT_HOME/.local/share/umake/bin/visual-studio-code /usr/bin/visual-studio-code
 
 
 # youtube-dl
@@ -172,12 +175,14 @@ RUN chmod a+rx /usr/local/bin/youtube-dl
 
 
 # alchemy
-WORKDIR /root/src
+WORKDIR $CLIENT_HOME/src
 RUN wget http://al.chemy.org/files/Alchemy-008.tar.gz
 RUN tar xvzf Alchemy-008.tar.gz
+RUN bash -c 'echo export PATH=\$PATH:$CLIENT_HOME/src/Alchemy' >> $CLIENT_HOME/.bashrc
 
 
-WORKDIR /root
+WORKDIR $CLIENT_HOME
 
 # docker run usual
-RUN bash -c 'echo docker run -it --rm -v ~/:/home/\$USER -p 80:80 local/playground xfce4-terminal' # for working.
+ENV DISPLAY 192.168.99.1:0
+RUN bash -c 'echo docker run -it --rm -v $HOME:/home/\$USER -p 80:80 local/playground xfce4-terminal -ls' # for working.
