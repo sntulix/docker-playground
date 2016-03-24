@@ -33,9 +33,9 @@ RUN pip install ansible markupsafe
 # Option, User Environment
 
 # japanese packages
-RUN wget -q https://www.ubuntulinux.jp/ubuntu-ja-archive-keyring.gpg -O- | apt-key add -
-RUN wget -q https://www.ubuntulinux.jp/ubuntu-jp-ppa-keyring.gpg -O- | apt-key add -
-RUN wget https://www.ubuntulinux.jp/sources.list.d/wily.list -O /etc/apt/sources.list.d/ubuntu-ja.list
+RUN wget -t 1 -q https://www.ubuntulinux.jp/ubuntu-ja-archive-keyring.gpg -O- | apt-key add -
+RUN wget -t 1 -q https://www.ubuntulinux.jp/ubuntu-jp-ppa-keyring.gpg -O- | apt-key add -
+RUN wget -t 1 https://www.ubuntulinux.jp/sources.list.d/wily.list -O /etc/apt/sources.list.d/ubuntu-ja.list
 RUN apt-get update -o Acquire::ForceIPv4=true
 RUN apt-get -y install language-pack-ja-base language-pack-ja fonts-ipafont-gothic dbus-x11
 RUN apt-get -y install ibus-skk
@@ -55,7 +55,7 @@ RUN echo "ibus-daemon -drx" >> $CLIENT_HOME/.bashrc
 
 # diff merge
 WORKDIR $CLIENT_HOME/src
-RUN wget http://download-us.sourcegear.com/DiffMerge/4.2.0/diffmerge_4.2.0.697.stable_amd64.deb
+RUN wget -t 1 http://download-us.sourcegear.com/DiffMerge/4.2.0/diffmerge_4.2.0.697.stable_amd64.deb
 RUN dpkg -i diffmerge_4.2.0.697.stable_amd64.deb
 
 
@@ -64,7 +64,7 @@ RUN dpkg -i diffmerge_4.2.0.697.stable_amd64.deb
 #RUN apt-get -y build-dep emacs24
 #RUN mkdir -p $CLIENT_HOME/src
 #WORKDIR $CLIENT_HOME/src
-#RUN wget http://ftp.gnu.org/gnu/emacs/emacs-24.5.tar.gz
+#RUN wget -t 1 http://ftp.gnu.org/gnu/emacs/emacs-24.5.tar.gz
 #RUN tar -xf emacs-24.5.tar.*
 #WORKDIR $CLIENT_HOME/src/emacs-24.5
 #RUN ./configure
@@ -95,7 +95,7 @@ RUN apt-get update -o Acquire::ForceIPv4=true
 
 # android studio
 WORKDIR $CLIENT_HOME/src
-RUN wget https://dl.google.com/dl/android/studio/ide-zips/2.0.0.14/android-studio-ide-143.2609919-linux.zip
+RUN wget -t 1 https://dl.google.com/dl/android/studio/ide-zips/2.0.0.14/android-studio-ide-143.2609919-linux.zip
 RUN unzip android-studio-ide-143.2609919-linux.zip -d /opt
 RUN bash -c 'echo export PATH=\$PATH:/opt/android-studio/bin' >> $CLIENT_HOME/.bashrc
 RUN apt-get install -y lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6 libc6-i386 lib32gcc1 # solution for "Unable to run mksdcard SDK tool."
@@ -137,7 +137,7 @@ RUN chmod +x $CLIENT_HOME/src/install-java8.sh
 
 
 # Install SBCL from the tarball binaries.
-RUN wget http://prdownloads.sourceforge.net/sbcl/sbcl-1.3.1-x86-64-linux-binary.tar.bz2	 -O $CLIENT_HOME/src/sbcl.tar.bz2 \
+RUN wget -t 1 http://prdownloads.sourceforge.net/sbcl/sbcl-1.3.1-x86-64-linux-binary.tar.bz2	 -O $CLIENT_HOME/src/sbcl.tar.bz2 \
 &&    mkdir $CLIENT_HOME/src/sbcl \
 &&    tar jxvf $CLIENT_HOME/src/sbcl.tar.bz2 --strip-components=1 -C $CLIENT_HOME/src/sbcl/ \
 &&    cd $CLIENT_HOME/src/sbcl \
@@ -145,7 +145,7 @@ RUN wget http://prdownloads.sourceforge.net/sbcl/sbcl-1.3.1-x86-64-linux-binary.
 &&    rm -rf $CLIENT_HOME/src/sbcl/
 
 WORKDIR $CLIENT_HOME/src/sbcl
-RUN wget http://beta.quicklisp.org/quicklisp.lisp
+RUN wget -t 1 http://beta.quicklisp.org/quicklisp.lisp
 RUN bash -c 'echo "(defvar *dist-url* \"http://beta.quicklisp.org/dist/quicklisp/2015-12-18/distinfo.txt\")" > $CLIENT_HOME/src/sbcl/install.lisp'
 RUN bash -c 'echo "(load \"quicklisp.lisp\")" >> $CLIENT_HOME/src/sbcl/install.lisp'
 RUN bash -c 'echo "(quicklisp-quickstart:install :path \"$CLIENT_HOME/quicklisp/\" :dist-url *dist-url*)" >> $CLIENT_HOME/src/sbcl/install.lisp'
@@ -171,7 +171,7 @@ RUN ln -s $CLIENT_HOME/.local/share/umake/bin/visual-studio-code /usr/bin/visual
 
 # genshin font
 WORKDIR /usr/local/share/fonts
-RUN wget https://osdn.jp/downloads/users/8/8637/genshingothic-20150607.zip
+RUN wget -t 1 https://osdn.jp/downloads/users/8/8637/genshingothic-20150607.zip
 RUN unzip genshingothic-20150607.zip
 WORKDIR $CLIENT_HOME
 
@@ -183,7 +183,7 @@ RUN chmod a+rx /usr/local/bin/youtube-dl
 
 # alchemy
 WORKDIR $CLIENT_HOME/src
-RUN wget http://al.chemy.org/files/Alchemy-008.tar.gz
+RUN wget -t 1 http://al.chemy.org/files/Alchemy-008.tar.gz
 RUN tar xvzf Alchemy-008.tar.gz
 RUN bash -c 'echo export PATH=\$PATH:$CLIENT_HOME/src/Alchemy' >> $CLIENT_HOME/.bashrc
 
