@@ -188,6 +188,10 @@ RUN tar xvzf Alchemy-008.tar.gz
 RUN bash -c 'echo export PATH=\$PATH:$CLIENT_HOME/src/Alchemy' >> $CLIENT_HOME/.bashrc
 
 
+# .bashrc
+RUN bash -c 'echo alias ls=\"ls --color\" >> $CLIENT_HOME/.bashrc'
+
+
 WORKDIR $CLIENT_HOME
 
 # docker run usual
