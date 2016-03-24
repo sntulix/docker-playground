@@ -169,6 +169,13 @@ RUN /usr/bin/xfce4-terminal --tab --command $CLIENT_HOME/src/install-java8.sh --
 RUN ln -s $CLIENT_HOME/.local/share/umake/bin/visual-studio-code /usr/bin/visual-studio-code
 
 
+# genshin font
+WORKDIR /usr/local/share/fonts
+RUN wget https://osdn.jp/downloads/users/8/8637/genshingothic-20150607.zip
+RUN unzip genshingothic-20150607.zip
+WORKDIR $CLIENT_HOME
+
+
 # youtube-dl
 RUN curl https://yt-dl.org/downloads/2016.03.18/youtube-dl -o /usr/local/bin/youtube-dl
 RUN chmod a+rx /usr/local/bin/youtube-dl
