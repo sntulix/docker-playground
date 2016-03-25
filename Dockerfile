@@ -198,4 +198,3 @@ ADD copy_rcfiles.sh $CLIENT_HOME
 RUN chmod +x $CLIENT_HOME/copy_rcfiles.sh
 CMD xfce4-terminal --tab --command $CLIENT_HOME/copy_rcfiles.sh
 ENV DISPLAY 192.168.99.1:0
-RUN bash -c 'echo docker run -it --rm -v $HOME:/home/\$USER -p 80:80 local/playground xfce4-terminal -ls' # for working.
