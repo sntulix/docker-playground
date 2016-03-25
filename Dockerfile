@@ -10,7 +10,7 @@ RUN sed -i.bak -e "s%http://archive.ubuntu.com/ubuntu/%http://ftp.iij.ad.jp/pub/
 
 # dependencies
 RUN apt-get update -o Acquire::ForceIPv4=true
-RUN apt-get install -y p7zip bzip2 curl git man nkf ntp psmisc software-properties-common tmux unzip vim wget
+RUN apt-get install -y p7zip bzip2 cmake curl git man nkf ntp psmisc software-properties-common tmux unzip vim wget
 RUN apt-get clean
 
 # git latest
