@@ -171,13 +171,6 @@ RUN sbcl --non-interactive --load $CLIENT_HOME/src/sbcl/install.lisp
 #RUN ln -s $CLIENT_HOME/.local/share/umake/bin/visual-studio-code /usr/bin/visual-studio-code
 
 
-# genshin font
-#WORKDIR /usr/local/share/fonts
-#RUN wget -t 1 https://osdn.jp/downloads/users/8/8637/genshingothic-20150607.zip
-#RUN unzip genshingothic-20150607.zip
-#WORKDIR $CLIENT_HOME
-
-
 # .bashrc
 RUN bash -c 'echo alias ls=\"ls --color\" >> $CLIENT_HOME/.bashrc'
 
