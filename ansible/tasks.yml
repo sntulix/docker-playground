@@ -1,7 +1,7 @@
 - include: tasks/copy_ssh.yml
 - include: tasks/packages_option.yml
 - include: tasks/genshinfont.yml
-- include: tasks/vscode.yml
+#- include: tasks/vscode.yml
 - include: tasks/java8.yml
 #- include: tasks/android_studio.yml
 - include: tasks/youtube-dl.yml

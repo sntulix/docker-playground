@@ -5,5 +5,5 @@
     cd ~/src;
     wget -t 1 https://go.microsoft.com/fwlink/?LinkID=620884 -O vscode.zip;
     unzip vscode.zip;
-    ln -s ~/src/VSCode-linux-x64/code /usr/bin/vscode
+    ln -s ~/src/VSCode-linux-x64/code /usr/bin/vscode;
     cd ~/;
