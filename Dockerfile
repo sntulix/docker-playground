@@ -80,7 +80,7 @@ RUN dpkg -i diffmerge_4.2.0.697.stable_amd64.deb
 # nvm and node.js
 ENV NODE_VERSION v4.2.6
 RUN git clone https://github.com/creationix/nvm.git $CLIENT_HOME/.nvm
-RUN echo "if [[ -s $CLIENT_HOME/.nvm/nvm.sh ]] ; then source $CLIENT_HOME/.nvm/nvm.sh ; fi" > $CLIENT_HOME/.bashrc
+RUN echo "if [[ -s $CLIENT_HOME/.nvm/nvm.sh ]] ; then source $CLIENT_HOME/.nvm/nvm.sh ; fi" >> $CLIENT_HOME/.bashrc
 RUN bash -c 'source $CLIENT_HOME/.nvm/nvm.sh && nvm install $NODE_VERSION && nvm use $NODE_VERSION && nvm alias default $NODE_VERSION && ln -s $CLIENT_HOME/.nvm/versions/node/$NODE_VERSION/bin/node /usr/bin/node && ln -s $CLIENT_HOME/.nvm/versions/node/$NODE_VERSION/bin/npm /usr/bin/npm'
 
 ## install npm packages
