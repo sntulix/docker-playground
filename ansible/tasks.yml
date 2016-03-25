@@ -1,7 +1,8 @@
 - include: tasks/pb-copy_ssh.yml
 - include: tasks/pb-packages_option.yml
 - include: tasks/pb-genshinfont.yml
-- include: tasks/pb-java8.yml
 - include: tasks/pb-vscode.yml
+- include: tasks/pb-java8.yml
+#- include: tasks/pb-android_studio.yml
 - include: tasks/pb-youtube-dl.yml
-- include: tasks/pb-alchemy.yml
+#- include: tasks/pb-alchemy.yml
