@@ -91,14 +91,6 @@ RUN npm -g install stylus
 RUN npm -g install eslint
 
 
-# android studio
-#WORKDIR $CLIENT_HOME/src
-#RUN wget -t 1 https://dl.google.com/dl/android/studio/ide-zips/2.0.0.14/android-studio-ide-143.2609919-linux.zip
-#RUN unzip android-studio-ide-143.2609919-linux.zip -d /opt
-#RUN bash -c 'echo export PATH=\$PATH:/opt/android-studio/bin' >> $CLIENT_HOME/.bashrc
-#RUN apt-get install -y lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6 libc6-i386 lib32gcc1 # solution for "Unable to run mksdcard SDK tool."
-
-
 # Set Env
 ENV SHELL /bin/bash
 RUN mkdir $CLIENT_HOME/.ssh
