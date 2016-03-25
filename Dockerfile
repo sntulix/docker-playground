@@ -183,13 +183,6 @@ RUN sbcl --non-interactive --load $CLIENT_HOME/src/sbcl/install.lisp
 #RUN chmod a+rx /usr/local/bin/youtube-dl
 
 
-# alchemy
-#WORKDIR $CLIENT_HOME/src
-#RUN wget -t 1 http://al.chemy.org/files/Alchemy-008.tar.gz
-#RUN tar xvzf Alchemy-008.tar.gz
-#RUN bash -c 'echo export PATH=\$PATH:$CLIENT_HOME/src/Alchemy' >> $CLIENT_HOME/.bashrc
-
-
 # .bashrc
 RUN bash -c 'echo alias ls=\"ls --color\" >> $CLIENT_HOME/.bashrc'
 
