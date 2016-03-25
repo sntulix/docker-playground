@@ -157,20 +157,6 @@ RUN sbcl --non-interactive --load $CLIENT_HOME/src/sbcl/install.lisp
 
 
 # options
-# visual studio code
-#RUN add-apt-repository ppa:ubuntu-desktop/ubuntu-make
-#RUN apt-get update
-#RUN apt-get -y install ubuntu-make
-#RUN apt-get -y install libgtk2.0-0 libgconf-2-4 libnss3 libasound-dev
-
-
-# Install VSCode and Java8 & Init spacemacs
-#WORKDIR $CLIENT_HOME
-#RUN /usr/bin/xfce4-terminal --tab --command $CLIENT_HOME/src/install-java8.sh --tab --command emacs --tab --command "umake web visual-studio-code"
-#RUN /usr/bin/xfce4-terminal --tab --command $CLIENT_HOME/src/install-java8.sh --tab --command "umake web visual-studio-code"
-#RUN ln -s $CLIENT_HOME/.local/share/umake/bin/visual-studio-code /usr/bin/visual-studio-code
-
-
 # .bashrc
 RUN bash -c 'echo alias ls=\"ls --color\" >> $CLIENT_HOME/.bashrc'
 
