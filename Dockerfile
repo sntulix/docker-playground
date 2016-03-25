@@ -178,11 +178,6 @@ RUN sbcl --non-interactive --load $CLIENT_HOME/src/sbcl/install.lisp
 #WORKDIR $CLIENT_HOME
 
 
-# youtube-dl
-#RUN curl https://yt-dl.org/downloads/2016.03.18/youtube-dl -o /usr/local/bin/youtube-dl
-#RUN chmod a+rx /usr/local/bin/youtube-dl
-
-
 # .bashrc
 RUN bash -c 'echo alias ls=\"ls --color\" >> $CLIENT_HOME/.bashrc'
 
