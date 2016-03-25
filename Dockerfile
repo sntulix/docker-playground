@@ -27,6 +27,8 @@ RUN apt-get clean
 # ansible2
 RUN apt-get -y install python-dev python-pip
 RUN pip install ansible markupsafe
+RUN mkdir -p $CLIENT_HOME/ansible
+RUN bash -c 'echo 127.0.0.1 ansible_connection=local > $CLIENT_HOME/ansible/localhost'
 
 
 
@@ -89,16 +91,16 @@ RUN npm -g install stylus
 RUN npm -g install eslint
 
 # Java8
-RUN add-apt-repository ppa:webupd8team/java
-RUN apt-get update -o Acquire::ForceIPv4=true
+#RUN add-apt-repository ppa:webupd8team/java
+#RUN apt-get update -o Acquire::ForceIPv4=true
 
 
 # android studio
-WORKDIR $CLIENT_HOME/src
-RUN wget -t 1 https://dl.google.com/dl/android/studio/ide-zips/2.0.0.14/android-studio-ide-143.2609919-linux.zip
-RUN unzip android-studio-ide-143.2609919-linux.zip -d /opt
-RUN bash -c 'echo export PATH=\$PATH:/opt/android-studio/bin' >> $CLIENT_HOME/.bashrc
-RUN apt-get install -y lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6 libc6-i386 lib32gcc1 # solution for "Unable to run mksdcard SDK tool."
+#WORKDIR $CLIENT_HOME/src
+#RUN wget -t 1 https://dl.google.com/dl/android/studio/ide-zips/2.0.0.14/android-studio-ide-143.2609919-linux.zip
+#RUN unzip android-studio-ide-143.2609919-linux.zip -d /opt
+#RUN bash -c 'echo export PATH=\$PATH:/opt/android-studio/bin' >> $CLIENT_HOME/.bashrc
+#RUN apt-get install -y lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6 libc6-i386 lib32gcc1 # solution for "Unable to run mksdcard SDK tool."
 
 
 # Set Env
@@ -123,17 +125,17 @@ env LIBGL_ALWAYS_INDIRECT 1
 
 
 # web server
-RUN apt-get -y install apache2 libapache2-mod-php5 php5-mysql mysql-server-5.6 mysql-client-5.6
-RUN apt-get clean
+#RUN apt-get -y install apache2 libapache2-mod-php5 php5-mysql mysql-server-5.6 mysql-client-5.6
+#RUN apt-get clean
 
-RUN sed -i.bak -e "s%;date.timezone =%date.timezone = Tokyo/Asia%g" /etc/php5/apache2/php.ini
-RUN usermod -u 1000 www-data
+#RUN sed -i.bak -e "s%;date.timezone =%date.timezone = Tokyo/Asia%g" /etc/php5/apache2/php.ini
+#RUN usermod -u 1000 www-data
 
 
 # create Java8 install script.
-RUN bash -c "echo apt-get -y install oracle-java8-installer > $CLIENT_HOME/src/install-java8.sh"
-RUN bash -c "echo apt-get -y install oracle-java8-set-default >> $CLIENT_HOME/src/install-java8.sh"
-RUN chmod +x $CLIENT_HOME/src/install-java8.sh
+#RUN bash -c "echo apt-get -y install oracle-java8-installer > $CLIENT_HOME/src/install-java8.sh"
+#RUN bash -c "echo apt-get -y install oracle-java8-set-default >> $CLIENT_HOME/src/install-java8.sh"
+#RUN chmod +x $CLIENT_HOME/src/install-java8.sh
 
 
 # Install SBCL from the tarball binaries.
@@ -156,36 +158,36 @@ RUN sbcl --non-interactive --load $CLIENT_HOME/src/sbcl/install.lisp
 
 # options
 # visual studio code
-RUN add-apt-repository ppa:ubuntu-desktop/ubuntu-make
-RUN apt-get update
-RUN apt-get -y install ubuntu-make
-RUN apt-get -y install libgtk2.0-0 libgconf-2-4 libnss3 libasound-dev
+#RUN add-apt-repository ppa:ubuntu-desktop/ubuntu-make
+#RUN apt-get update
+#RUN apt-get -y install ubuntu-make
+#RUN apt-get -y install libgtk2.0-0 libgconf-2-4 libnss3 libasound-dev
 
 
 # Install VSCode and Java8 & Init spacemacs
-WORKDIR $CLIENT_HOME
+#WORKDIR $CLIENT_HOME
 #RUN /usr/bin/xfce4-terminal --tab --command $CLIENT_HOME/src/install-java8.sh --tab --command emacs --tab --command "umake web visual-studio-code"
-RUN /usr/bin/xfce4-terminal --tab --command $CLIENT_HOME/src/install-java8.sh --tab --command "umake web visual-studio-code"
-RUN ln -s $CLIENT_HOME/.local/share/umake/bin/visual-studio-code /usr/bin/visual-studio-code
+#RUN /usr/bin/xfce4-terminal --tab --command $CLIENT_HOME/src/install-java8.sh --tab --command "umake web visual-studio-code"
+#RUN ln -s $CLIENT_HOME/.local/share/umake/bin/visual-studio-code /usr/bin/visual-studio-code
 
 
 # genshin font
-WORKDIR /usr/local/share/fonts
-RUN wget -t 1 https://osdn.jp/downloads/users/8/8637/genshingothic-20150607.zip
-RUN unzip genshingothic-20150607.zip
-WORKDIR $CLIENT_HOME
+#WORKDIR /usr/local/share/fonts
+#RUN wget -t 1 https://osdn.jp/downloads/users/8/8637/genshingothic-20150607.zip
+#RUN unzip genshingothic-20150607.zip
+#WORKDIR $CLIENT_HOME
 
 
 # youtube-dl
-RUN curl https://yt-dl.org/downloads/2016.03.18/youtube-dl -o /usr/local/bin/youtube-dl
-RUN chmod a+rx /usr/local/bin/youtube-dl
+#RUN curl https://yt-dl.org/downloads/2016.03.18/youtube-dl -o /usr/local/bin/youtube-dl
+#RUN chmod a+rx /usr/local/bin/youtube-dl
 
 
 # alchemy
-WORKDIR $CLIENT_HOME/src
-RUN wget -t 1 http://al.chemy.org/files/Alchemy-008.tar.gz
-RUN tar xvzf Alchemy-008.tar.gz
-RUN bash -c 'echo export PATH=\$PATH:$CLIENT_HOME/src/Alchemy' >> $CLIENT_HOME/.bashrc
+#WORKDIR $CLIENT_HOME/src
+#RUN wget -t 1 http://al.chemy.org/files/Alchemy-008.tar.gz
+#RUN tar xvzf Alchemy-008.tar.gz
+#RUN bash -c 'echo export PATH=\$PATH:$CLIENT_HOME/src/Alchemy' >> $CLIENT_HOME/.bashrc
 
 
 # .bashrc
@@ -194,7 +196,6 @@ RUN bash -c 'echo alias ls=\"ls --color\" >> $CLIENT_HOME/.bashrc'
 
 # docker run
 WORKDIR $CLIENT_HOME
-ADD copy_rcfiles.sh $CLIENT_HOME
-RUN chmod +x $CLIENT_HOME/copy_rcfiles.sh
-CMD xfce4-terminal --tab --command $CLIENT_HOME/copy_rcfiles.sh
 ENV DISPLAY 192.168.99.1:0
+ADD ansible $CLIENT_HOME/ansible
+CMD xfce4-terminal --tab --command "ansible-playbook ansible/playbook.yml"

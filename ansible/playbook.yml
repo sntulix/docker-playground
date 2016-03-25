@@ -1,0 +1,6 @@
+---
+- hosts: 127.0.0.1
+  user: root
+  tasks:
+  - include: tasks/pb-copy_ssh.yml
+  - include: tasks/pb-packages_option.yml
