@@ -90,10 +90,6 @@ RUN npm -g install less
 RUN npm -g install stylus
 RUN npm -g install eslint
 
-# Java8
-#RUN add-apt-repository ppa:webupd8team/java
-#RUN apt-get update -o Acquire::ForceIPv4=true
-
 
 # android studio
 #WORKDIR $CLIENT_HOME/src
@@ -130,12 +126,6 @@ env LIBGL_ALWAYS_INDIRECT 1
 
 #RUN sed -i.bak -e "s%;date.timezone =%date.timezone = Tokyo/Asia%g" /etc/php5/apache2/php.ini
 #RUN usermod -u 1000 www-data
-
-
-# create Java8 install script.
-#RUN bash -c "echo apt-get -y install oracle-java8-installer > $CLIENT_HOME/src/install-java8.sh"
-#RUN bash -c "echo apt-get -y install oracle-java8-set-default >> $CLIENT_HOME/src/install-java8.sh"
-#RUN chmod +x $CLIENT_HOME/src/install-java8.sh
 
 
 # Install SBCL from the tarball binaries.
