@@ -95,14 +95,7 @@ RUN npm -g install eslint
 ENV SHELL /bin/bash
 RUN mkdir $CLIENT_HOME/.ssh
 RUN chmod 600 $CLIENT_HOME/.ssh
-ENV DISPLAY 192.168.99.1:0
-ENV GIT_USER_NAME "Takahiro Shizuki"
-ENV GIT_USER_EMAIL "shizu@futuregadget.com"
-
-# git config
 RUN git config --global push.default simple
-RUN git config --global user.name $GIT_USER_NAME
-RUN git config --global user.email $GIT_USER_EMAIL
 
 # Set Timezone
 RUN cp /usr/share/zoneinfo/Japan /etc/localtime
@@ -141,6 +134,13 @@ RUN sbcl --non-interactive --load $CLIENT_HOME/src/sbcl/install.lisp
 # options
 # .bashrc
 RUN bash -c 'echo alias ls=\"ls --color\" >> $CLIENT_HOME/.bashrc'
+
+
+# git config
+ENV GIT_USER_NAME "Takahiro Shizuki"
+ENV GIT_USER_EMAIL "shizu@futuregadget.com"
+RUN git config --global user.name $GIT_USER_NAME
+RUN git config --global user.email $GIT_USER_EMAIL
 
 
 # docker run
