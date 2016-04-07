@@ -20,7 +20,7 @@ RUN apt-get install -y git tig
 
 
 # x window relations
-RUN apt-get -y install python-appindicator xterm xfce4-terminal leafpad vim-gtk
+RUN apt-get -y install insserv sysv-rc-conf python-appindicator xterm xfce4-terminal leafpad vim-gtk
 RUN apt-get clean
 
 
