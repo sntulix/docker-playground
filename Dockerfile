@@ -144,7 +144,10 @@ RUN git config --global user.email $GIT_USER_EMAIL
 
 
 # docker run
-WORKDIR $CLIENT_HOME
 ENV DISPLAY 192.168.99.1:0
-ADD ansible $CLIENT_HOME/ansible
-CMD xfce4-terminal --tab --command "ansible-playbook ansible/playbook.yml"
+WORKDIR /opt/src
+ADD ansible /opt/src/ansible
+RUN ansible-playbook -v --extra-vars "taskname=packages_option" ansible/playbook.yml
+RUN ansible-playbook -v --extra-vars "taskname=ricty_diminished-font" ansible/playbook.yml
+WORKDIR $CLIENT_HOME
+CMD xfce4-terminal --tab --command "bash -c 'cd /mnt/dockerfile_root; ./run_ansible.sh; read'"
