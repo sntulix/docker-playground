@@ -145,6 +145,7 @@ RUN git config --global user.email $GIT_USER_EMAIL
 
 # docker run
 ENV DISPLAY 192.168.99.1:0
+ADD terminalrc $CLIENT_HOME/.config/xfce4/terminal/
 WORKDIR /opt/src
 ADD ansible /opt/src/ansible
 RUN ansible-playbook -v --extra-vars "taskname=packages_option" ansible/playbook.yml
