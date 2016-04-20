@@ -8,7 +8,7 @@ ENV CLIENT_HOME /root
 # set package repository mirror
 RUN sed -i.bak -e "s%http://archive.ubuntu.com/ubuntu/%http://ftp.iij.ad.jp/pub/linux/ubuntu/archive/%g" /etc/apt/sources.list
 
-# dependencies
+# fundamental
 RUN apt-get update -o Acquire::ForceIPv4=true
 RUN apt-get install -y p7zip bzip2 cmake curl git man nkf ntp psmisc software-properties-common tmux unzip vim wget
 RUN apt-get clean
