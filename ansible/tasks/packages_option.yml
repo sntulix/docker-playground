@@ -1,0 +1,4 @@
+- name: install ros
+  shell: >
+    apt-get -y install exuberant-ctags
+
