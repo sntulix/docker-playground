@@ -25,11 +25,12 @@ RUN apt-get clean
 
 
 # ansible2
-RUN apt-get -y install python-dev python-pip
+RUN apt-get -y install python-dev python-pip libyaml-dev libffi-dev libssl-dev
+RUN pip install --upgrade setuptools
+RUN pip install --upgrade pip
 RUN pip install ansible markupsafe
 RUN mkdir -p $CLIENT_HOME/ansible
 RUN bash -c 'echo 127.0.0.1 ansible_connection=local > $CLIENT_HOME/ansible/localhost'
-
 
 
 # Option, User Environment
