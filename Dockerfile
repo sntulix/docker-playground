@@ -33,6 +33,10 @@ RUN mkdir -p $CLIENT_HOME/ansible
 RUN bash -c 'echo 127.0.0.1 ansible_connection=local > $CLIENT_HOME/ansible/localhost'
 
 
+RUN apt-get install -y fail2ban
+RUN apt-get clean
+
+
 # Option, User Environment
 
 # japanese packages
