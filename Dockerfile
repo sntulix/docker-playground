@@ -46,6 +46,10 @@ WORKDIR /opt/src/nkf-2.1.3
 RUN make
 RUN make install
 
+
+# environment
+RUN umask 002
+
 # group & user add
 RUN groupadd shizuki
 RUN useradd -m -g shizuki -G wheel -s /usr/sbin/bash shizuki
