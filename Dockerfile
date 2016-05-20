@@ -19,7 +19,7 @@ RUN pacman -Sc && pacman-optimize
 
 # fundamental
 RUN pacman --noconfirm -Syu
-RUN pacman --noconfirm -S p7zip bzip2 curl fakeroot git gvim man ntp openssh psmisc sudo tmux unzip wget
+RUN pacman --noconfirm -S p7zip bzip2 curl fakeroot git gvim man net-tools ntp openssh psmisc sudo tmux unzip wget
 
 # development
 RUN pacman --noconfirm -S gcc cmake make patch tig
@@ -57,7 +57,7 @@ RUN /bin/sh -c 'echo shizuki   ALL=\(ALL\) ALL' > /etc/sudoers
 
 
 # docker run
-ENV DISPLAY 192.168.99.1:0
+ENV DISPLAY 192.168.1.1:0
 RUN /bin/sh -c 'echo export VISUAL="vim" >> $CLIENT_HOME/.bashrc'
 RUN bash -c 'echo alias ls=\"ls --color\" >> $CLIENT_HOME/.bashrc'
 
@@ -70,7 +70,10 @@ WORKDIR /opt/src
 ADD ansible /opt/src/ansible
 RUN PATH=$PATH:$CLIENT_HOME/.local/bin ansible-playbook -v --extra-vars "taskname=ricty_diminished-font" ansible/playbook.yml
 RUN fc-cache -rfv
+#RUN PATH=$PATH:$CLIENT_HOME/.local/bin ansible-playbook -v --extra-vars "taskname=samba" ansible/playbook.yml
 
 ADD terminalrc $CLIENT_HOME/.config/xfce4/terminal/
 WORKDIR $CLIENT_HOME
-CMD xfce4-terminal
+COPY run_ansible.sh /opt/src/
+CMD xfce4-terminal --tab --command "bash -c 'cd /opt/src/; ./run_ansible.sh; read'"
+#CMD xfce4-terminal --tab --command run_ansible.sh
