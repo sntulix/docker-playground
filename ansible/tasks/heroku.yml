@@ -1,3 +1,3 @@
 - name: install heroku
   shell: >
-    wget -O- https://toolbelt.heroku.com/install-ubuntu.sh | sh;
+    pacman --noconfirm -S heroku-toolbelt;
