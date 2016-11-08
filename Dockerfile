@@ -88,6 +88,13 @@ RUN /bin/bash -c 'echo export PATH="/usr/local/heroku/bin:$PATH" >> ~/.bashrc'
 
 
 
+# ssh
+WORKDIR /root
+RUN bash -c "mkdir .ssh && chmod 700 .ssh"
+RUN bash -c "cd .ssh/ && touch authorized_keys && chmod 600 authorized_keys"
+RUN bash -c "cd .ssh/ && touch config && chmod 600 config"
+
+
 #RUN PATH=$PATH:$CLIENT_HOME/.local/bin ansible-playbook -v --extra-vars "taskname=samba" ansible/playbook.yml
 
 ADD terminalrc $CLIENT_HOME/.config/xfce4/terminal/
