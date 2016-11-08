@@ -100,6 +100,8 @@ RUN bash -c "cd .ssh/ && touch authorized_keys && chmod 600 authorized_keys"
 RUN bash -c "cd .ssh/ && touch config && chmod 600 config"
 
 
+#WORKDIR /opt/src
+ADD ansible /root
 #RUN PATH=$PATH:$CLIENT_HOME/.local/bin ansible-playbook -v --extra-vars "taskname=samba" ansible/playbook.yml
 
 ADD terminalrc $CLIENT_HOME/.config/xfce4/terminal/
