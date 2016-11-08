@@ -2,6 +2,8 @@
   shell: >
     mkdir -p /usr/share/fonts;
     cd /usr/share/fonts;
-    wget -t 1 https://github.com/yascentur/RictyDiminished/archive/4.0.1.zip -O ricty_diminished.zip;
-    unzip -j ricty_diminished.zip;
+    wget -t 1 --no-check-certificate https://github.com/mzyy94/RictyDiminished-for-Powerline/archive/3.2.4-powerline-early-2016.zip -O ricty_diminished.zip;
+    unzip -jo ricty_diminished.zip;
+    fc-cache -rfv;
     cd ~/;
+    
