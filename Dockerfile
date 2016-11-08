@@ -47,6 +47,11 @@ RUN make
 RUN make install
 
 
+# youtube-dl
+RUN curl -s -L https://yt-dl.org/downloads/2016.03.18/youtube-dl -o /usr/local/bin/youtube-dl
+RUN chmod a+rx /usr/local/bin/youtube-dl
+
+
 # dropbox
 WORKDIR /usr/bin
 RUN wget -t 1 https://raw.github.com/andreafabrizi/Dropbox-Uploader/master/dropbox_uploader.sh
