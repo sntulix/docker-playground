@@ -77,6 +77,8 @@ RUN fc-cache -rfv
 
 ADD terminalrc $CLIENT_HOME/.config/xfce4/terminal/
 WORKDIR $CLIENT_HOME
-COPY run_ansible.sh /opt/src/
-CMD xfce4-terminal --tab --command "bash -c 'cd /opt/src/; ./run_ansible.sh; read'"
+COPY run_ansible.sh /root/ansible
+#CMD bash
+CMD xfce4-terminal
 #CMD xfce4-terminal --tab --command run_ansible.sh
+#CMD xfce4-terminal --tab --command "bash -c 'echo \"TODO: dropbox_uploader.sh && cd /opt/src/ && ansible-playbook -v --extra-vars "taskname=copy_ssh" ansible/playbook.yml && ./run_ansible.sh\" && echo \"press any key.\" && read'"
