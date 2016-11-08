@@ -51,9 +51,10 @@ RUN make install
 RUN umask 002
 
 # group & user add
+RUN /bin/sh -c 'echo root   ALL=\(ALL\) ALL' > /etc/sudoers
 RUN groupadd shizuki
 RUN useradd -m -g shizuki -G wheel -s /usr/sbin/bash shizuki
-RUN /bin/sh -c 'echo shizuki   ALL=\(ALL\) ALL' > /etc/sudoers
+RUN /bin/sh -c 'echo shizuki   ALL=\(ALL\) ALL' >> /etc/sudoers
 
 
 # docker run
