@@ -19,7 +19,7 @@ RUN pacman -Sc && pacman-optimize
 
 # fundamental
 RUN pacman --noconfirm -Syu
-RUN pacman --noconfirm -S p7zip bzip2 curl fakeroot git gvim man net-tools ntp openssh psmisc sudo tmux unzip wget
+RUN pacman --noconfirm -S p7zip bzip2 curl fakeroot git gvim man net-tools ntp openssh psmisc sudo tmux unzip wget cifs-utils
 
 # development
 RUN pacman --noconfirm -S gcc cmake make patch tig
@@ -98,6 +98,11 @@ WORKDIR /root
 RUN bash -c "mkdir .ssh && chmod 700 .ssh"
 RUN bash -c "cd .ssh/ && touch authorized_keys && chmod 600 authorized_keys"
 RUN bash -c "cd .ssh/ && touch config && chmod 600 config"
+
+
+# cifs
+RUN mkdir -p /mnt/host/src
+RUN bash -c "echo //192.168.1.10/src /mnt/host/src cifs sec=ntlmssp,username=shizuki,password=password,iocharset=utf8 0 0 >> /etc/fstab"
 
 
 #WORKDIR /opt/src
