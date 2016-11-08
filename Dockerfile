@@ -47,6 +47,12 @@ RUN make
 RUN make install
 
 
+# dropbox
+WORKDIR /usr/bin
+RUN wget -t 1 https://raw.github.com/andreafabrizi/Dropbox-Uploader/master/dropbox_uploader.sh
+RUN chmod +x dropbox_uploader.sh
+
+
 # environment
 RUN umask 002
 
