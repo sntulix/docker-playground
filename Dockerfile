@@ -67,9 +67,11 @@ RUN /bin/sh -c "echo ja_JP.UTF-8 UTF-8 > /etc/locale.gen"
 RUN locale-gen
 #RUN localectl set-locale LANG=ja_JP.UTF-8
 
-WORKDIR /opt/src
-ADD ansible /opt/src/ansible
-RUN PATH=$PATH:$CLIENT_HOME/.local/bin ansible-playbook -v --extra-vars "taskname=ricty_diminished-font" ansible/playbook.yml
+# fonts
+RUN mkdir -p /usr/share/fonts
+WORKDIR /usr/share/fonts
+RUN wget -t 1 --no-check-certificate https://github.com/mzyy94/RictyDiminished-for-Powerline/archive/3.2.4-powerline-early-2016.zip -O ricty_diminished.zip
+RUN /bin/sh -c 'unzip -jo ricty_diminished.zip'
 RUN fc-cache -rfv
 #RUN PATH=$PATH:$CLIENT_HOME/.local/bin ansible-playbook -v --extra-vars "taskname=samba" ansible/playbook.yml
 
