@@ -79,6 +79,15 @@ WORKDIR /usr/share/fonts
 RUN wget -t 1 --no-check-certificate https://github.com/mzyy94/RictyDiminished-for-Powerline/archive/3.2.4-powerline-early-2016.zip -O ricty_diminished.zip
 RUN /bin/sh -c 'unzip -jo ricty_diminished.zip'
 RUN fc-cache -rfv
+
+
+# heroku
+RUN pacman --noconfirm -S ruby
+RUN wget -qO- https://toolbelt.heroku.com/install.sh | sh
+RUN /bin/bash -c 'echo export PATH="/usr/local/heroku/bin:$PATH" >> ~/.bashrc'
+
+
+
 #RUN PATH=$PATH:$CLIENT_HOME/.local/bin ansible-playbook -v --extra-vars "taskname=samba" ansible/playbook.yml
 
 ADD terminalrc $CLIENT_HOME/.config/xfce4/terminal/
