@@ -105,7 +105,6 @@ RUN fc-cache -rfv
 
 
 # heroku
-RUN pacman --noconfirm -S ruby
 RUN wget -qO- https://toolbelt.heroku.com/install.sh | sh
 RUN /bin/bash -c 'echo export PATH="/usr/local/heroku/bin:$PATH" >> ~/.bashrc'
 
