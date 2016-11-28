@@ -22,10 +22,11 @@ RUN pacman --noconfirm -Syu
 RUN pacman --noconfirm -S p7zip bzip2 curl fakeroot git gvim man net-tools ntp openssh psmisc sudo tmux unzip wget cifs-utils
 
 # development
-RUN pacman --noconfirm -S gcc cmake make patch tig
+RUN pacman --noconfirm -Syu
+RUN pacman --noconfirm -S gcc cmake make patch tig ruby
 
 # x window relations
-RUN pacman --noconfirm -S xterm xfce4-terminal leafpad
+RUN pacman --noconfirm -S xterm xfce4-terminal
 
 # ansible2
 WORKDIR $CLIENT_HOME
