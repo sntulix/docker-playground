@@ -115,6 +115,9 @@ WORKDIR /root
 RUN bash -c "mkdir .ssh && chmod 700 .ssh"
 RUN bash -c "cd .ssh/ && touch authorized_keys && chmod 600 authorized_keys"
 RUN bash -c "cd .ssh/ && touch config && chmod 600 config"
+RUN mkdir -p /root/.uim.d/customs
+RUN bash -c "echo \"(define custom-activate-default-im-name? #t)(define custom-preserved-default-im-name 'skk)(define default-im-name 'skk)\" > /root/.uim.d/customs/custom-global.scm"
+RUN bash -c "echo uim-fep >> .bashrc"
 
 
 # cifs
