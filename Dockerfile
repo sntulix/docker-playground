@@ -69,6 +69,23 @@ RUN useradd -m -g shizuki -G wheel -s /usr/sbin/bash shizuki
 RUN /bin/sh -c 'echo shizuki   ALL=\(ALL\) ALL' >> /etc/sudoers
 
 
+# skk & uim
+RUN pacman --noconfirm -Syu
+RUN pacman --noconfirm -S uim skk-jisyo skktools
+
+ENV LANG ja_JP.UTF-8
+ENV LC_ALL ja_JP.UTF-8
+ENV LC_CTYPE ja_JP.UTF-8
+
+ENV GTK_IM_MODULE 'uim'
+ENV QT_IM_MODULE 'uim'
+ENV XMODIFIERS '@im=uim'
+RUN echo export ENV GTK_IM_MODULE=uim >> $CLIENT_HOME/.bashrc
+RUN echo export QT_IM_MODULE=uim >> $CLIENT_HOME/.bashrc
+#RUN echo "if ps -ef | grep -v grep | grep uim > /dev/null; then echo; else bash -c 'uim-xim --engine=skk &'; fi" >> $CLIENT_HOME/.bashrc
+RUN echo export XMODIFIERS=\'@im=uim\' >> $CLIENT_HOME/.bashrc
+
+
 # docker run
 ENV DISPLAY 192.168.1.1:0
 RUN /bin/sh -c 'echo export VISUAL="vim" >> $CLIENT_HOME/.bashrc'
